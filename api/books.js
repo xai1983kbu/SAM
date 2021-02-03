@@ -1,7 +1,7 @@
 "use strict";
 
 const AWS = require("aws-sdk");
-const uuidv4 = require("uuidv4");
+const { uuid } = require("uuidv4");
 
 const dynamodb = new AWS.DynamoDB();
 
@@ -12,7 +12,7 @@ exports.handler = (event, context, callback) => {
   switch (event.httpMethod) {
     // add a book to the library
     case "POST":
-      const bookId = uuidv4();
+      const bookId = uuid();
       dynamodb.putItem(
         {
           Item: AWS.DynamoDB.Converter.marshall({
@@ -130,16 +130,13 @@ exports.handler = (event, context, callback) => {
                   },
                   body: JSON.stringify({ error: err }),
                 });
+
               callback(null, {
                 statusCode: 200,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
                 },
-                body: JSON.stringify(
-                  data.Items.map((item) =>
-                    AWS.DynamoDB.Converter.unmarshall(item)
-                  )
-                ),
+                body: JSON.stringify(newItem),
               });
             }
           );

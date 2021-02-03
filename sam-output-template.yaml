@@ -7,7 +7,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs10.x
-      CodeUri: s3://pluralsight-books/364c425fca31fb5f7babbee350eefd64
+      CodeUri: s3://upload-something-here-2021/1d4d119674d75e2d73456eded5a6f028
       Handler: books.handler
       Environment:
         Variables:
